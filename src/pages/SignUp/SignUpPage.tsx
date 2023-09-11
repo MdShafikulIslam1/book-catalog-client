@@ -1,33 +1,26 @@
 import { SubmitHandler, useForm, FieldValues } from "react-hook-form";
-import { useLoginUserMutation } from "../../redux/api/api";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { useEffect } from "react";
-import { loginSuccess } from "../../redux/features/user/userSlice";
+import { useCreateUserMutation } from "../../redux/api/api";
+import { useNavigate } from "react-router-dom";
 // interface ILoginData {
 //   email: string;
 //   password: string;
 // }
 
-const Login = () => {
+const SignUpPage = () => {
   const { register, handleSubmit } = useForm();
-  const { user } = useAppSelector((state) => state.auth);
-  console.log("login user", user);
-  const [loginUser, { data: loginData }] = useLoginUserMutation();
-
-  const dispatch = useAppDispatch();
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    loginUser(data);
-  };
-  if (loginData) {
-    const token = loginData.data.accessToken;
-    const user = loginData.data.user.email;
-    dispatch(loginSuccess({ token, user }));
+  const [createUser, { data, isSuccess }] = useCreateUserMutation();
+  const navigate = useNavigate();
+  if (isSuccess) {
+    return navigate("/");
   }
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    createUser(data);
+  };
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
+          <h1 className="text-5xl font-bold">SignUp now!</h1>
           <p className="py-6">
             Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
@@ -68,7 +61,7 @@ const Login = () => {
             </div>
             <div className="form-control mt-6">
               <button type="submit" className="btn btn-primary">
-                Login
+                SignUp
               </button>
             </div>
           </div>
@@ -78,4 +71,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUpPage;

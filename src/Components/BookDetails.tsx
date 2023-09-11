@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   useCreateReviewsMutation,
   useGetSingleBookQuery,
@@ -10,7 +10,7 @@ const BookDetails = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [createReviews] = useCreateReviewsMutation();
   const { id } = useParams();
-  const { data } = useGetSingleBookQuery(id,{refetchOnMountOrArgChange:true,pollingInterval:1000});
+  const { data } = useGetSingleBookQuery(id,{refetchOnMountOrArgChange:true});
   const book: IBook = data?.data;
   const handleReviewSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,6 +37,11 @@ const BookDetails = () => {
           <h2 className="card-title">{book?.title}</h2>
           <p>{book?.author}</p>
           <p>{book?.genre}</p>
+        </div>
+        <div>
+          <Link to={`/books/edit/${id}`}>
+          <button>Edit Book</button>
+          </Link>
         </div>
       </div>
       <form

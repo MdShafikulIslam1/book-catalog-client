@@ -10,12 +10,36 @@ export const api = createApi({
       query: (id) => `/books/${id}`,
     }),
     createReviews: builder.mutation({
-      query: ({ id,...data }) => ({
+      query: ({ id, ...data }) => ({
         url: `books/${id}`,
         method: "PATCH",
         body: data,
       }),
     }),
+    createUser: builder.mutation({
+      query: (data) => ({
+        url: "/users",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    getSingleUser: builder.query({
+      query: (email) => `/users/${email}`,
+    }),
+    loginUser: builder.mutation({
+      query: (data) => ({
+        url: "/auth/login",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
-export const { useGetAllBookQuery, useGetSingleBookQuery ,useCreateReviewsMutation} = api;
+export const {
+  useGetAllBookQuery,
+  useGetSingleBookQuery,
+  useCreateReviewsMutation,
+  useCreateUserMutation,
+  useGetSingleUserQuery,
+  useLoginUserMutation,
+} = api;

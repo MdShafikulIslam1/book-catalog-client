@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../redux/hook";
+import { useDispatch } from "react-redux";
+import { logoutSuccess } from "../../redux/features/user/userSlice";
 
 const Navbar = () => {
+  const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const handleLogOut = () => {
+    dispatch(logoutSuccess());
+  };
   const navItems = (
     <>
       <li>
@@ -9,8 +17,20 @@ const Navbar = () => {
       <li>
         <Link to="/all-book">All Book</Link>
       </li>
+      {user ? (
+        <button
+          onClick={() => handleLogOut()}
+          className="btn btn-outline btn-secondary"
+        >
+          LogOut
+        </button>
+      ) : (
+        <li>
+          <Link to="/auth/login">login</Link>
+        </li>
+      )}
       <li>
-        <Link to="/login">login</Link>
+        <Link to="/users">SignUp</Link>
       </li>
     </>
   );
@@ -41,13 +61,15 @@ const Navbar = () => {
             {navItems}
           </ul>
         </div>
-        <Link to='/' className="btn btn-ghost normal-case text-xl">Book Store</Link>
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
+          Book Store
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">User</a>
+        <a href="#">{user}</a>
       </div>
     </div>
   );
