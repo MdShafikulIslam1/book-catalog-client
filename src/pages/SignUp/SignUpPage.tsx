@@ -1,14 +1,10 @@
 import { SubmitHandler, useForm, FieldValues } from "react-hook-form";
 import { useCreateUserMutation } from "../../redux/api/api";
 import { useNavigate } from "react-router-dom";
-// interface ILoginData {
-//   email: string;
-//   password: string;
-// }
 
 const SignUpPage = () => {
   const { register, handleSubmit } = useForm();
-  const [createUser, { data, isSuccess }] = useCreateUserMutation();
+  const [createUser, { isSuccess }] = useCreateUserMutation();
   const navigate = useNavigate();
   if (isSuccess) {
     return navigate("/");
@@ -17,21 +13,16 @@ const SignUpPage = () => {
     createUser(data);
   };
   return (
-    <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">SignUp now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
-        </div>
+    <div className="min-h-screen hero bg-base-200">
+      <div className="flex-col hero-content lg:flex-row-reverse">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
+          className="w-full p-5 mx-auto shadow-2xl lg:w-96 rounded-2xl"
         >
           <div className="card-body">
+            <h1 className="text-3xl font-semibold tracking-widest text-center uppercase">
+              Sign up
+            </h1>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -53,13 +44,8 @@ const SignUpPage = () => {
                 placeholder="password"
                 className="input input-bordered"
               />
-              <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
-              </label>
             </div>
-            <div className="form-control mt-6">
+            <div className="mt-6 form-control">
               <button type="submit" className="btn btn-primary">
                 SignUp
               </button>

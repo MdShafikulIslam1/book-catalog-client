@@ -17,21 +17,29 @@ const Navbar = () => {
       <li>
         <Link to="/all-book">All Book</Link>
       </li>
-      {user ? (
-        <button
-          onClick={() => handleLogOut()}
-          className="btn btn-outline btn-secondary"
-        >
-          LogOut
-        </button>
-      ) : (
+      {user && (
         <li>
-          <Link to="/auth/login">login</Link>
+          <Link to="/books/add-book">Add Book</Link>
         </li>
       )}
       <li>
         <Link to="/users">SignUp</Link>
       </li>
+
+      {user ? (
+        <button
+          onClick={() => handleLogOut()}
+          className="px-20 tracking-widest btn btn-outline btn-secondary"
+        >
+          LogOut
+        </button>
+      ) : (
+        <Link to="/auth/login">
+          <button className="px-20 tracking-widest btn btn-primary btn-outline">
+            login
+          </button>
+        </Link>
+      )}
     </>
   );
   return (
@@ -41,7 +49,7 @@ const Navbar = () => {
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="w-5 h-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -61,16 +69,29 @@ const Navbar = () => {
             {navItems}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost normal-case text-xl">
+        <Link to="/" className="text-xl normal-case btn btn-ghost">
           Book Store
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navItems}</ul>
+      <div className="hidden navbar-center lg:flex">
+        <ul className="px-1 space-x-4 menu menu-horizontal">{navItems}</ul>
       </div>
-      <div className="navbar-end">
-        <a href="#">{user}</a>
-      </div>
+      {/* <div className="navbar-end">
+        {user ? (
+          <button
+            onClick={() => handleLogOut()}
+            className="px-20 tracking-widest btn btn-outline btn-secondary"
+          >
+            LogOut
+          </button>
+        ) : (
+          <Link to="/auth/login">
+            <button className="px-20 tracking-widest btn btn-primary btn-outline">
+              login
+            </button>
+          </Link>
+        )}
+      </div> */}
     </div>
   );
 };

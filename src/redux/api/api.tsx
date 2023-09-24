@@ -3,8 +3,21 @@ export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4001/api/v1/" }),
   endpoints: (builder) => ({
+    createBook: builder.mutation({
+      query: (data) => ({
+        url: "books/create-book",
+        method: "POST",
+        body: data,
+      }),
+    }),
     getAllBook: builder.query({
-      query: () => "/books",
+      query: (queryParameters = {}) => {
+        if (Object.keys(queryParameters).length === 0) {
+          return "/books";
+        }
+        const queryParams = new URLSearchParams(queryParameters).toString();
+        return `/books?${queryParams}`;
+      },
     }),
     getSingleBook: builder.query({
       query: (id) => `/books/${id}`,
@@ -33,6 +46,19 @@ export const api = createApi({
         body: data,
       }),
     }),
+    editBook: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `books/${id}/edit-book`,
+        method: "PATCH",
+        body: data,
+      }),
+    }),
+    deleteBook: builder.mutation({
+      query: (id) => ({
+        url: `books/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 export const {
@@ -42,4 +68,7 @@ export const {
   useCreateUserMutation,
   useGetSingleUserQuery,
   useLoginUserMutation,
+  useEditBookMutation,
+  useDeleteBookMutation,
+  useCreateBookMutation,
 } = api;

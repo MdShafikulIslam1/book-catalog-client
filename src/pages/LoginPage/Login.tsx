@@ -1,19 +1,15 @@
 import { SubmitHandler, useForm, FieldValues } from "react-hook-form";
 import { useLoginUserMutation } from "../../redux/api/api";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { useEffect } from "react";
+import { useAppDispatch } from "../../redux/hook";
 import { loginSuccess } from "../../redux/features/user/userSlice";
-// interface ILoginData {
-//   email: string;
-//   password: string;
-// }
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
-  const { user } = useAppSelector((state) => state.auth);
-  console.log("login user", user);
   const [loginUser, { data: loginData }] = useLoginUserMutation();
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
   const dispatch = useAppDispatch();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     loginUser(data);
@@ -22,23 +18,19 @@ const Login = () => {
     const token = loginData.data.accessToken;
     const user = loginData.data.user.email;
     dispatch(loginSuccess({ token, user }));
+    navigate(from, { replace: true });
   }
   return (
-    <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
-        </div>
+    <div className="">
+      <div className="flex items-center justify-center min-h-screen bg-cyan-50 ">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
+          className="w-full p-5 mx-auto shadow-2xl lg:w-96 rounded-2xl"
         >
           <div className="card-body">
+            <h1 className="text-3xl font-semibold tracking-widest text-center uppercase">
+              Login
+            </h1>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -60,13 +52,8 @@ const Login = () => {
                 placeholder="password"
                 className="input input-bordered"
               />
-              <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
-              </label>
             </div>
-            <div className="form-control mt-6">
+            <div className="mt-6 form-control">
               <button type="submit" className="btn btn-primary">
                 Login
               </button>
