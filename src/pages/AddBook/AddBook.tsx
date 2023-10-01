@@ -50,7 +50,7 @@ const AddBook = () => {
           <input
             {...register("imageUrl")}
             type="text"
-            placeholder="Enter Image Url Link"
+            placeholder="Enter valid Image Url Link"
             className="input input-bordered"
           />
         </div>

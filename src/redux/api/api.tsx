@@ -15,7 +15,8 @@ export const api = createApi({
         if (Object.keys(queryParameters).length === 0) {
           return "/books";
         }
-        const queryParams = new URLSearchParams(queryParameters).toString();
+        const queryParams = new URLSearchParams(queryParameters);
+        console.log(queryParams);
         return `/books?${queryParams}`;
       },
     }),

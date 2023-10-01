@@ -6,7 +6,7 @@ interface IProp {
 }
 const CardBook = ({ book }: IProp) => {
   return (
-    <div className="relative p-2 m-2 overflow-hidden border rounded-lg h-96">
+    <div className="relative p-2 m-2 overflow-hidden rounded-lg shadow-2xl h-96">
       <div className="flex items-center justify-center h-52">
         <img
           src={book.imageUrl}

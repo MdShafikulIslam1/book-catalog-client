@@ -7,9 +7,11 @@ import {
 import { IBook } from "../type/bookType";
 import { ChangeEvent, FormEvent, useState } from "react";
 import Swal from "sweetalert2";
+import { useAppSelector } from "../redux/hook";
 
 const BookDetails = () => {
   const [inputValue, setInputValue] = useState<string>("");
+  const { user } = useAppSelector((state) => state.auth);
   const [createReviews] = useCreateReviewsMutation();
   const [deleteBook, { data: deletedData }] = useDeleteBookMutation();
   const { id } = useParams();
@@ -34,6 +36,9 @@ const BookDetails = () => {
   };
 
   const handleBookDelete = () => {
+    if (!user) {
+      return navigate("/auth/login");
+    }
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -82,6 +87,7 @@ const BookDetails = () => {
                   Edit Book
                 </button>
               </Link>
+
               <button
                 onClick={() => handleBookDelete()}
                 className="bg-green-100 btn btn-warning btn-outline"
