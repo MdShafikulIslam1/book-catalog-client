@@ -6,11 +6,12 @@ const SignUpPage = () => {
   const { register, handleSubmit } = useForm();
   const [createUser, { isSuccess }] = useCreateUserMutation();
   const navigate = useNavigate();
-  if (isSuccess) {
-    return navigate("/");
-  }
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     createUser(data);
+    if (isSuccess) {
+      return navigate("/");
+    }
   };
   return (
     <div className="min-h-screen hero bg-base-200">
@@ -56,5 +57,4 @@ const SignUpPage = () => {
     </div>
   );
 };
-
 export default SignUpPage;

@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../redux/hook";
 import { useDispatch } from "react-redux";
 import { logoutSuccess } from "../../redux/features/user/userSlice";
 
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogOut = () => {
     dispatch(logoutSuccess());
+    navigate("/auth/login");
   };
   const navItems = (
     <>

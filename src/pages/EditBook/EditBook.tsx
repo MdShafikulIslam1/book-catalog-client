@@ -10,8 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const EditBook = () => {
   const { handleSubmit, register } = useForm();
   const { id } = useParams();
-  const [editBook, { data: editBookData, isSuccess, isLoading }] =
-    useEditBookMutation();
+  const [editBook, { isSuccess, isLoading }] = useEditBookMutation();
   const { data: currentBookData } = useGetSingleBookQuery(id, {
     refetchOnMountOrArgChange: true,
   });

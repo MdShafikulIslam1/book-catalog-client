@@ -12,6 +12,7 @@ const Books = () => {
   const [isFilterShow, setIsFilterShow] = useState(false);
   const { register, handleSubmit } = useForm();
   const { data } = useGetAllBookQuery(filtering);
+  console.log("data from books", data);
 
   const booksData: IBook[] = data?.data;
 

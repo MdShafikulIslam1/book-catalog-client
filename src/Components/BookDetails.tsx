@@ -108,23 +108,25 @@ const BookDetails = () => {
           </li>
         ))}
       </div>
-      <form
-        onSubmit={handleReviewSubmit}
-        className="flex w-3/4 gap-10 mt-12 text-center "
-      >
-        <textarea
-          placeholder="Bio"
-          className="w-full textarea textarea-bordered textarea-sm "
-          onChange={handleChange}
-          value={inputValue}
-        ></textarea>
-        <button
-          type="submit"
-          className="btn btn-outline btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+      {user && (
+        <form
+          onSubmit={handleReviewSubmit}
+          className="flex w-3/4 gap-10 mt-12 text-center "
         >
-          Post Review
-        </button>
-      </form>
+          <textarea
+            placeholder="Bio"
+            className="w-full textarea textarea-bordered textarea-sm "
+            onChange={handleChange}
+            value={inputValue}
+          ></textarea>
+          <button
+            type="submit"
+            className="btn btn-outline btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+          >
+            Post Review
+          </button>
+        </form>
+      )}
     </div>
   );
 };

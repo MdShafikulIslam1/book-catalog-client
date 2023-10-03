@@ -1,11 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4001/api/v1/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://book-catelog-backend-rho.vercel.app/api/v1/",
+  }),
   endpoints: (builder) => ({
     createBook: builder.mutation({
       query: (data) => ({
-        url: "books/create-book",
+        url: "/books/create-book",
         method: "POST",
         body: data,
       }),

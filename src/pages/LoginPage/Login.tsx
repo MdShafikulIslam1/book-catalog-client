@@ -3,6 +3,7 @@ import { useLoginUserMutation } from "../../redux/api/api";
 import { useAppDispatch } from "../../redux/hook";
 import { loginSuccess } from "../../redux/features/user/userSlice";
 import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -19,6 +20,13 @@ const Login = () => {
     const user = loginData.data.user.email;
     dispatch(loginSuccess({ token, user }));
     navigate(from, { replace: true });
+    Swal.fire({
+      position: "top",
+      icon: "success",
+      title: "User logged in successfully",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
   return (
     <div className="">
